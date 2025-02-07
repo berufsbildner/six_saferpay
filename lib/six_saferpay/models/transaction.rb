@@ -1,36 +1,33 @@
 module SixSaferpay
   class Transaction
-
     attr_accessor(
-                  :type,
-                  :status,
-                  :id,
-                  :capture_id,
-                  :date,
-                  :amount,
-                  :order_id,
-                  :acquirer_name,
-                  :acquirer_reference,
-                  :six_transaction_reference,
-                  :approval_code,
-                  :direct_debit,
-                  :invoice
-                 )
+      :type,
+      :status,
+      :id,
+      :capture_id,
+      :date,
+      :amount,
+      :order_id,
+      :acquirer_name,
+      :acquirer_reference,
+      :six_transaction_reference,
+      :approval_code,
+      :direct_debit,
+      :invoice,
+      :issuer_reference
+    )
 
     def initialize(type:,
-                   status:,
-                   id:,
-                   capture_id: nil,
-                   date:,
-                   amount:,
-                   order_id: nil,
-                   acquirer_name: nil,
-                   acquirer_reference: nil,
-                   six_transaction_reference:,
-                   approval_code: nil,
-                   direct_debit: nil,
-                   invoice: nil
-                  )
+      status:,
+      id:,
+      date:, amount:, six_transaction_reference:, capture_id: nil,
+      order_id: nil,
+      acquirer_name: nil,
+      acquirer_reference: nil,
+      approval_code: nil,
+      direct_debit: nil,
+      invoice: nil,
+      issuer_reference: nil)
       @type = type
       @status = status
       @id = id
@@ -44,10 +41,11 @@ module SixSaferpay
       @approval_code = approval_code
       @direct_debit = SixSaferpay::DirectDebit.new(**direct_debit.to_h) if direct_debit
       @invoice = SixSaferpay::Invoice.new(**invoice.to_h) if invoice
+      @issuer_reference = issuer_reference
     end
 
     def to_hash
-      hash = Hash.new
+      hash = {}
       hash.merge!(type: @type)
       hash.merge!(status: @status)
       hash.merge!(id: @id)
@@ -64,6 +62,5 @@ module SixSaferpay
       hash
     end
     alias_method :to_h, :to_hash
-
   end
 end

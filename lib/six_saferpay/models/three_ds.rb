@@ -1,13 +1,13 @@
 module SixSaferpay
   class ThreeDs
-
     attr_accessor(:authenticated, :liability_shift, :xid, :verification_value)
 
     def initialize(authenticated:,
-                   liability_shift:,
-                   xid:,
-                   verification_value: nil
-                  )
+      liability_shift:,
+      xid:,
+      verification_value: nil,
+      version: nil,
+      authentication_type: nil)
 
       @authenticated = authenticated
       @liability_shift = liability_shift
@@ -16,7 +16,7 @@ module SixSaferpay
     end
 
     def to_hash
-      hash = Hash.new
+      hash = {}
       hash.merge!(authenticated: @authenticated) if !@authenticated.nil?
       hash.merge!(liability_shift: @liability_shift) if !@liability_shift.nil?
       hash.merge!(xid: @xid) if @xid
@@ -24,6 +24,5 @@ module SixSaferpay
       hash
     end
     alias_method :to_h, :to_hash
-
   end
 end

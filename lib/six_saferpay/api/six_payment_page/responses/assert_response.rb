@@ -1,28 +1,26 @@
 module SixSaferpay
   module SixPaymentPage
     class AssertResponse
-
       attr_accessor(:response_header,
-                    :transaction,
-                    :payment_means,
-                    :payer,
-                    :registration_result,
-                    :liability,
-                    :dcc,
-                    :mastercard_issuer_installments,
-                    :fraud_prevention,
-                   )
+        :transaction,
+        :payment_means,
+        :payer,
+        :registration_result,
+        :liability,
+        :dcc,
+        :mastercard_issuer_installments,
+        :fraud_prevention)
 
       def initialize(response_header:,
-                    transaction:,
-                    payment_means:,
-                    payer: nil,
-                    registration_result: nil,
-                    liability: nil,
-                    dcc: nil,
-                    mastercard_issuer_installments: nil,
-                    fraud_prevention: nil
-                    )
+        transaction:,
+        payment_means:,
+        payer: nil,
+        registration_result: nil,
+        liability: nil,
+        dcc: nil,
+        mastercard_issuer_installments: nil,
+        fraud_prevention: nil,
+        issuer_reference: nil)
         @response_header = SixSaferpay::ResponseHeader.new(**response_header.to_h)
         @transaction = SixSaferpay::Transaction.new(**transaction.to_h)
         @payment_means = SixSaferpay::ResponsePaymentMeans.new(**payment_means.to_h)
@@ -38,7 +36,7 @@ module SixSaferpay
       end
 
       def to_hash
-        hash = Hash.new
+        hash = {}
         hash.merge!(response_header: @response_header.to_h) if @response_header
         hash.merge!(transaction: @transaction.to_h) if @transaction
         hash.merge!(payment_means: @payment_means.to_h) if @payment_means
@@ -55,7 +53,6 @@ module SixSaferpay
         hash
       end
       alias_method :to_h, :to_hash
-
     end
   end
 end
