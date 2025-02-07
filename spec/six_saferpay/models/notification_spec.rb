@@ -8,7 +8,7 @@ RSpec.describe SixSaferpay::Notification do
     {
       merchant_emails: subject.merchant_emails,
       payer_email: subject.payer_email,
-      notify_url: subject.notify_url
+      success_notify_url: subject.success_notify_url
     }
   }
 
