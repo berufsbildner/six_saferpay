@@ -3,7 +3,7 @@ module SixSaferpay
 
     attr_accessor(:payer_amount)
 
-    def initialize(payer_amount:)
+    def initialize(payer_amount:, markup: nil, exchange_rate: nil)
       @payer_amount = SixSaferpay::PayerAmount.new(**payer_amount.to_h)
     end
 
